@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodify/const/constants.dart';
+import 'package:foodify/screens/root_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -89,6 +90,39 @@ class _HomePageState extends State<HomePage> {
             bottom: 80,
             left: 30,
             child: Row(children: _buildIndicator()),
+          ),
+          Positioned(
+            bottom: 65,
+            right: 30,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Constants.primaryColor,
+              ),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (currentIndex < 2) {
+                      currentIndex++;
+                      if (currentIndex < 3) {
+                        _pageController.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
+                      }
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => RootPage()),
+                      );
+                    }
+                  });
+                },
+                icon: Icon(Icons.arrow_forward_ios),
+                color: Colors.white,
+                iconSize: 25,
+              ),
+            ),
           ),
         ],
       ),
