@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 desc: Constants.descTwo,
               ),
               CreatePage(
-                image: "assets/images/buritto.png",
+                image: "assets/images/pasta.png",
                 title: Constants.titleThree,
                 desc: Constants.descThree,
               ),
