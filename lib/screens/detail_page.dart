@@ -101,7 +101,7 @@ class _DetailPageState extends State<DetailPage> {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.only(top: 80, left: 30, right: 30),
+              padding: EdgeInsets.only(top: 70, left: 30, right: 30),
               height: size.height * 0.5,
               width: size.width,
               decoration: BoxDecoration(
@@ -112,30 +112,125 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Icon(Icons.star), Text("score")],
-                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("name"),
-                          Text("price")
+                          Text(
+                            food.title,
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Constants.primaryColor,
+                              fontFamily: "QuickBold",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            r"$" + food.price.toString(),
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.black87,
+                              fontFamily: "QuickBold",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+                          Icon(
+                            Icons.star,
+                            size: 30,
+                            color: Constants.primaryColor,
+                          ),
+                          Text(
+                            food.score,
+                            style: TextStyle(
+                              fontSize: 23,
+                              color: Constants.primaryColor,
+                              fontFamily: "QuickBold",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                     ],
+                  ),
+                  SizedBox(height: 15),
+                  Text(
+                    food.description,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black87,
+                      fontFamily: "QuickMedium",
+                      fontWeight: FontWeight.w700,
+                      height: 1.5,
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+      floatingActionButton: SizedBox(
+        width: size.width * 0.9,
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Constants.primaryColor,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 1.1),
+                      blurRadius: 5,
+                      color: Constants.primaryColor.withOpacity(0.3),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    "Add To Basket",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "QuickBold",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 20),
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: Constants.primaryColor.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 1.1),
+                    blurRadius: 5,
+                    color: Constants.primaryColor.withOpacity(0.3),
+                  ),
+                ],
+              ),
+              child: Icon(Icons.shopping_cart, color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

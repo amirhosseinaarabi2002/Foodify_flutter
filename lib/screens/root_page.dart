@@ -53,10 +53,7 @@ class _RootPageState extends State<RootPage> {
         onPressed: () {
           Navigator.push(
             context,
-            PageTransition(
-              type: PageTransitionType.leftToRight,
-              child: ScanPage(),
-            ),
+            PageTransition(type: PageTransitionType.fade, child: ScanPage()),
           );
         },
         backgroundColor: Constants.primaryColor,

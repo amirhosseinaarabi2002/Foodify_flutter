@@ -24,6 +24,7 @@ class Food {
   final String description;
   final String size;
   final String tag;
+  final String score;
 
   Food({
     required this.id,
@@ -35,6 +36,7 @@ class Food {
     required this.description,
     required this.size,
     required this.tag,
+    required this.score,
   });
 
   static final List<String> types = [
@@ -58,6 +60,7 @@ class Food {
           "A juicy burger with melted cheese, fresh lettuce, and soft buns.",
       size: "Medium",
       tag: "Special",
+      score: '3.0',
     ),
 
     Food(
@@ -71,6 +74,7 @@ class Food {
           "Cheesy pizza topped with crispy pepperoni and rich tomato sauce.",
       size: "Large",
       tag: "Hot",
+      score: '3.5',
     ),
 
     Food(
@@ -84,6 +88,7 @@ class Food {
           "Crispy fried chicken with signature spices and golden crust.",
       size: "Medium",
       tag: "Chef’s Choice",
+      score: '4.0',
     ),
 
     Food(
@@ -97,6 +102,7 @@ class Food {
           "Spicy tacos filled with seasoned beef, fresh veggies, and sauce.",
       size: "Small",
       tag: "New",
+      score: '4.5',
     ),
 
     Food(
@@ -110,6 +116,7 @@ class Food {
           "Big double-layer beef burger packed with flavor and freshness.",
       size: "Large",
       tag: "Limited Offer",
+      score: '2.5',
     ),
   ];
 }
