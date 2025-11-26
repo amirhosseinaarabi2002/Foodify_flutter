@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-class Constants {
-  static Color primaryColor = const Color(0xFFFE8C00);
-
-  static String titleOne = "Discover Deliciousness";
-  static String descOne =
-      "Explore thousands of mouth-watering recipes and food ideas tailored just for you.";
-  static String titleTwo = "Cook Smarter, Not Harder";
-  static String descTwo =
-      "Get step-by-step guidance, smart timers, and tips that make cooking easier than ever.";
-  static String titleThree = "Your Kitchen, Upgraded";
-  static String descThree =
-      "Save favorite recipes, track ingredients, and plan meals effortlessly with Foodify.";
-}
-
 class Food {
   final String id;
   final String title;
@@ -25,6 +11,7 @@ class Food {
   final String size;
   final String tag;
   final String score;
+  bool isSelected;
 
   Food({
     required this.id,
@@ -37,6 +24,7 @@ class Food {
     required this.size,
     required this.tag,
     required this.score,
+    required this.isSelected,
   });
 
   static final List<String> types = [
@@ -61,8 +49,8 @@ class Food {
       size: "Medium",
       tag: "Special",
       score: '3.0',
+      isSelected: false,
     ),
-
     Food(
       id: "2",
       title: "Pepperoni Pizza",
@@ -75,8 +63,8 @@ class Food {
       size: "Large",
       tag: "Hot",
       score: '3.5',
+      isSelected: false,
     ),
-
     Food(
       id: "3",
       title: "Fried Chicken",
@@ -89,8 +77,8 @@ class Food {
       size: "Medium",
       tag: "Chef’s Choice",
       score: '4.0',
+      isSelected: false,
     ),
-
     Food(
       id: "4",
       title: "Spicy Tacos",
@@ -103,8 +91,8 @@ class Food {
       size: "Small",
       tag: "New",
       score: '4.5',
+      isSelected: false,
     ),
-
     Food(
       id: "5",
       title: "Double Beef",
@@ -117,6 +105,29 @@ class Food {
       size: "Large",
       tag: "Limited Offer",
       score: '2.5',
+      isSelected: false,
     ),
   ];
+
+  // ---- FIXED STATIC METHODS ----
+  static List<Food> getFavoritedFoods() {
+    return sampleFoods.where((food) => food.isFavorited).toList();
+  }
+
+  static List<Food> getSelectedFoods() {
+    return sampleFoods.where((food) => food.isSelected).toList();
+  }
+}
+
+class Constants {
+  static Color primaryColor = const Color(0xFFFE8C00);
+  static String titleOne = "Discover Deliciousness";
+  static String descOne =
+      "Explore thousands of mouth-watering recipes and food ideas tailored just for you.";
+  static String titleTwo = "Cook Smarter, Not Harder";
+  static String descTwo =
+      "Get step-by-step guidance, smart timers, and tips that make cooking easier than ever.";
+  static String titleThree = "Your Kitchen, Upgraded";
+  static String descThree =
+      "Save favorite recipes, track ingredients, and plan meals effortlessly with Foodify.";
 }

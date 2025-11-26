@@ -18,7 +18,15 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int bottomIndex = 0;
 
-  List<Widget> page = [MenuPage(), FavoritePage(), CartPage(), ProfilePage()];
+  List<Food> favorites = [];
+  List<Food> myCart = [];
+
+  List<Widget> get pages => [
+        MenuPage(),
+        FavoritePage(favoritedFoods: favorites),
+        CartPage(addedToCartFoods: myCart),
+        ProfilePage(),
+      ];
 
   List<IconData> iconList = [
     Icons.home,
@@ -27,7 +35,13 @@ class _RootPageState extends State<RootPage> {
     Icons.person,
   ];
 
-  List<String> appbarTitle = ["Home", "Favorites", "Basket", "Profile"];
+  List<String> titles = ["Home", "Favorites", "Basket", "Profile"];
+
+  void refreshLists() {
+    favorites = Food.getFavoritedFoods();
+    myCart = Food.getSelectedFoods();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +52,9 @@ class _RootPageState extends State<RootPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                appbarTitle[bottomIndex],
-                style: TextStyle(color: Colors.grey, fontFamily: "QuickBold"),
+                titles[bottomIndex],
+                style: TextStyle(
+                    color: Colors.grey, fontFamily: "QuickBold"),
               ),
               Icon(Icons.notifications, color: Colors.grey),
             ],
@@ -48,12 +63,18 @@ class _RootPageState extends State<RootPage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
       ),
-      body: IndexedStack(index: bottomIndex, children: page),
+      body: IndexedStack(
+        index: bottomIndex,
+        children: pages,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            PageTransition(type: PageTransitionType.fade, child: ScanPage()),
+            PageTransition(
+              type: PageTransitionType.fade,
+              child: ScanPage(),
+            ),
           );
         },
         backgroundColor: Constants.primaryColor,
@@ -64,9 +85,12 @@ class _RootPageState extends State<RootPage> {
       bottomNavigationBar: AnimatedBottomNavigationBar(
         icons: iconList,
         activeIndex: bottomIndex,
-        onTap: (index) => setState(() {
-          bottomIndex = index;
-        }),
+        onTap: (index) {
+          setState(() {
+            bottomIndex = index;
+            refreshLists();
+          });
+        },
         splashColor: Constants.primaryColor,
         activeColor: Constants.primaryColor,
         inactiveColor: Colors.grey,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodify/const/constants.dart';
+import 'package:foodify/screens/cart_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DetailPage extends StatefulWidget {
   final String foodId; // <-- change to String
@@ -10,6 +12,47 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  bool toggleIsSelected(bool isSelected) {
+    return !isSelected;
+  }
+
+  void showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Center(child: Image.asset("assets/images/success.png")),
+
+          content: Text(
+            "The item has been added to your basket successfully.",
+            style: TextStyle(
+              color: Constants.primaryColor.withOpacity(0.8),
+              fontFamily: "QuickBold",
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  fontFamily: "QuickBold",
+                  color: Constants.primaryColor,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -199,35 +242,57 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ],
                 ),
-                child: Center(
-                  child: Text(
-                    "Add To Basket",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "QuickBold",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                child: InkResponse(
+                  onTap: () {
+                    setState(() {
+                      bool isSelected = toggleIsSelected(food.isSelected);
+
+                      food.isSelected = isSelected;
+                    });
+
+                    showSuccessDialog();
+                  },
+                  child: Center(
+                    child: Text(
+                      "Add To Basket",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "QuickBold",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             SizedBox(width: 20),
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                color: Constants.primaryColor.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 1.1),
-                    blurRadius: 5,
-                    color: Constants.primaryColor.withOpacity(0.3),
-                  ),
-                ],
+            GestureDetector(
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   PageTransition(
+                //     type: PageTransitionType.scale,
+                //     child: CartPage(addedToCartFoods: Food.sampleFoods),
+                //   ),
+                // );
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Constants.primaryColor.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 1.1),
+                      blurRadius: 5,
+                      color: Constants.primaryColor.withOpacity(0.3),
+                    ),
+                  ],
+                ),
+                child: Icon(Icons.shopping_cart, color: Colors.white),
               ),
-              child: Icon(Icons.shopping_cart, color: Colors.white),
             ),
           ],
         ),
